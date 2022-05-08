@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/fabio/AndroidStudioProjects/Udemy/MyQuizApp/app/src/main/res/drawable/default_option_border_bg.xml" value="0.1635" />
+        <entry key="..\:/Users/fabio/AndroidStudioProjects/Udemy/MyQuizApp/app/src/main/res/drawable/selected_option_border_bg.xml" value="0.1635" />
         <entry key="..\:/Users/fabio/AndroidStudioProjects/Udemy/MyQuizApp/app/src/main/res/layout/activity_main.xml" value="0.19010416666666666" />
         <entry key="..\:/Users/fabio/AndroidStudioProjects/Udemy/MyQuizApp/app/src/main/res/layout/activity_quiz_questions.xml" value="0.20416666666666666" />
       </map>
