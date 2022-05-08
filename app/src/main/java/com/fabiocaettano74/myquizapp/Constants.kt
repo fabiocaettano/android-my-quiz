@@ -83,7 +83,7 @@ object Constants {
             R.drawable.ic_flag_of_new_zealand,
             "New Zeland","Jordan","Sudan","Palestine",1
         )
-        questionsList.add(que7)
+        questionsList.add(que9)
 
         return questionsList
 
