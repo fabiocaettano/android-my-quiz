@@ -28,6 +28,7 @@ object Constants {
             R.drawable.ic_flag_of_brazil,
             "Belarus","Belize","Brunei","Brazil",4
         )
+        questionsList.add(que3)
 
         //4
         val que4 =  Question(
