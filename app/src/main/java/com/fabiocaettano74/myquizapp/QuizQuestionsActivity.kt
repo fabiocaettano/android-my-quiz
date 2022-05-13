@@ -1,10 +1,10 @@
 package com.fabiocaettano74.myquizapp
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.core.content.ContextCompat
@@ -13,7 +13,11 @@ class QuizQuestionsActivity : AppCompatActivity() , View.OnClickListener{
 
     private var mCurrentPosition : Int = 1
     private var mQuestionsList:ArrayList<Question>? = null
+
     private var mSelectionOptionPosition : Int = 0
+
+    private var mUserName : String? = null
+    private var mCorrectAnswers: Int = 0
 
     private var progressBar: ProgressBar? = null
     private var tvProgress : TextView? = null
@@ -27,10 +31,11 @@ class QuizQuestionsActivity : AppCompatActivity() , View.OnClickListener{
 
     private var btnSubmit : Button? = null
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quiz_questions)
+
+        mUserName = intent.getStringExtra(Constants.USER_NAME)
 
         tvImage = findViewById(R.id.iv_image)
         progressBar = findViewById(R.id.progressBar)
@@ -54,8 +59,10 @@ class QuizQuestionsActivity : AppCompatActivity() , View.OnClickListener{
 
     private fun setQuestion() {
 
-        defaultOptionsView()
         val question: Question = mQuestionsList!![mCurrentPosition - 1]
+
+        defaultOptionsView()
+
         tvImage?.setImageResource(question.image)
         progressBar?.progress = mCurrentPosition
         tvProgress?.text = "$mCurrentPosition / ${progressBar?.max}"
@@ -101,7 +108,7 @@ class QuizQuestionsActivity : AppCompatActivity() , View.OnClickListener{
                 R.drawable.default_option_border_bg
 
             )
-            option.setTextColor(Color.parseColor("#FF0000"))
+            //option.setTextColor(Color.parseColor("#FF0000"))
         }
     }
 
@@ -152,14 +159,23 @@ class QuizQuestionsActivity : AppCompatActivity() , View.OnClickListener{
                         mCurrentPosition <= mQuestionsList!!.size -> {
                             setQuestion()
                         }else ->{
-                            Toast.makeText(this,"You Made it to the end",Toast.LENGTH_SHORT).show()
+                            //Toast.makeText(this,"You Made it to the end",Toast.LENGTH_SHORT).show()
+                            val intent = Intent(this,ResultActivity::class.java)
+                            intent.putExtra(Constants.USER_NAME, mUserName)
+                            intent.putExtra(Constants.CORRECT_ANSWERS, mCorrectAnswers)
+                            intent.putExtra(Constants.TOTAL_QUESTIONS, mQuestionsList?.size)
+                            startActivity(intent)
+                            finish()
                         }
                     }
                 }else{
+
                     val question = mQuestionsList?.get(mCurrentPosition - 1)
 
                     if(question!!.correctAnswer != mSelectionOptionPosition){
                         answerView(mSelectionOptionPosition, R.drawable.wrong_option_border_bg)
+                    }else{
+                        mCorrectAnswers++
                     }
 
                     answerView(question.correctAnswer,R.drawable.correct_option_border_bg)
@@ -175,7 +191,6 @@ class QuizQuestionsActivity : AppCompatActivity() , View.OnClickListener{
                 }
             }
         }
-
     }
 
     private fun answerView(answer: Int, drawableView: Int){
@@ -207,8 +222,6 @@ class QuizQuestionsActivity : AppCompatActivity() , View.OnClickListener{
                     drawableView
                 )
             }
-
         }
     }
-
 }
